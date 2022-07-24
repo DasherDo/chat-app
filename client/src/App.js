@@ -1,4 +1,6 @@
 import React, { useState , useEffect } from 'react'
+import Window from './components/Text/Window';
+import Form from './components/Form/Form';
 
 function App() {
 
@@ -14,14 +16,14 @@ function App() {
       )
     }, []);
 
-    console.log(apiData)
-
     return (
       <div>
-        {(typeof apiData.users === 'undefined') ? (<p>Loading . . .</p>)
+        {/* {(typeof apiData.users === 'undefined') ? (<p>Loading . . .</p>)
         : (
           apiData.users.map((user, i) => (<div key={i}>{user}</div>))
-        )}
+        )} */}
+        <Window />
+        <Form />
       </div>
     )
 }

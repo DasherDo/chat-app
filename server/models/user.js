@@ -8,7 +8,7 @@ const UserSchema = new Schema(
     }
 )
 
-User.virtual('url').get(() => {
+UserSchema.virtual('url').get(() => {
     return '/user/' + this._id
 })
 

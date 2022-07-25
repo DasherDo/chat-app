@@ -7,15 +7,6 @@ function Text() {
 
     const [user, setUser] = useState({_id : 'josh'})
 
-    useEffect(() => {
-        fetch(`/text/josh`)
-            .then(
-                response => response.json()
-            ).then (
-                data => setText(data)
-            )
-    }, [])
-
     return (
         <div>
             {(typeof text['body'] === 'undefined') ? (<div>Loading . . .</div>) : 

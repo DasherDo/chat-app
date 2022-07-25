@@ -1,29 +1,27 @@
-import React, { useState , useEffect } from 'react'
+import React, { useState , useEffect } from 'react';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import Window from './components/Text/Window';
 import Form from './components/Form/Form';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Chat from './pages/Chat';
 
 function App() {
 
-    const [apiData , setApiData] = useState([{}]);
-
-    useEffect(() => {
-      fetch('/api').then(
-        response => response.json()
-      ).then(
-        data => {
-          setApiData(data)
-        }
-      )
-    }, []);
-
+  
     return (
       <div>
         {/* {(typeof apiData.users === 'undefined') ? (<p>Loading . . .</p>)
         : (
           apiData.users.map((user, i) => (<div key={i}>{user}</div>))
         )} */}
-        <Window />
-        <Form />
+        <BrowserRouter>
+          <Routes>
+            <Route path='/register' element={<Register/>} />
+            <Route path='/login' element={<Login/>} />
+            <Route path='/' element={<Chat/>} />
+          </Routes>
+        </BrowserRouter>
       </div>
     )
 }

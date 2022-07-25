@@ -12,9 +12,8 @@ export default function Form () {
         }));
     }
 
-
     const handleTextSend = (subject, body, recipient) => {
-        console.log(`Message Sent: ${subject}, ${body}, ${recipient}`)
+        
     }
 
 

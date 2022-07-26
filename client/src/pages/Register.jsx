@@ -1,4 +1,4 @@
-import React , { useState } from 'react';
+import React , { useState , useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -24,6 +24,12 @@ function Register() {
         draggable: true,
     };
 
+    useEffect(() => {
+        if (localStorage.getItem('user')) {
+          navigate('/')
+        }
+      }, [navigate])
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         if(handleValidation()){
@@ -35,7 +41,7 @@ function Register() {
                 toast.error(data.msg, toastStyle )
             };
             if (data.status === true){
-                localStorage.setItem('chat-app-user', JSON.stringify(data.user));
+                localStorage.setItem('user', JSON.stringify(data.user));
                 navigate('/')
             }
         }

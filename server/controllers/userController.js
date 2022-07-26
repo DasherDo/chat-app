@@ -2,13 +2,19 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const async = require('async');
 
-exports.user_list = (req, res) => {
+module.exports.user_list = (req, res) => {
 
-    User.find()
-        .sort([['name','ascending']])
-        .exec((err, list_users) => {
-            res.json({'list_users' : list_users})
-        }) 
+    try{
+        User.find({id : {$ne : req.params.id}})
+            .select(["username", "id"])
+            .exec((err, results) => {
+                return res.json(results)
+            })
+        
+    }
+    catch (err) {
+        next(err)
+    }
     }
 
 module.exports.register = async (req, res, next) => {
@@ -37,5 +43,5 @@ module.exports.login = async (req, res, next) => {
     }
     delete user.password
     console.log('Login successful')
-    return res.json({msg: 'Login successful', status : true})
+    return res.json({msg: 'Login successful', status : true, user})
 }

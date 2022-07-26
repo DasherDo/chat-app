@@ -1,7 +1,5 @@
 import React, { useState , useEffect } from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Window from './components/Text/Window';
-import Form from './components/Form/Form';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Chat from './pages/Chat';

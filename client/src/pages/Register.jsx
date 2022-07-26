@@ -2,7 +2,7 @@ import React , { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { route } from '../utils/apiRoutes';
+import { registerRoute } from '../utils/apiRoutes';
 import axios from 'axios';
 
 function Register() {
@@ -28,7 +28,7 @@ function Register() {
         e.preventDefault()
         if(handleValidation()){
             const { username , password } = userInfo;
-            const { data } = await axios.post(route, {
+            const { data } = await axios.post(registerRoute, {
                 username, password
             });
             if (data.status === false){

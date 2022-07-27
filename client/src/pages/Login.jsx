@@ -31,16 +31,16 @@ function Login() {
     const handleSubmit = async (e) => {
         e.preventDefault()
         if(handleValidation()){
-            const { username , password } = userInfo;
+            const { username , password} = userInfo;
             const { data } = await axios.post(loginRoute, {
-                username, password
+                username , password
             });
             if (data.status === false){
                 toast.error(data.msg, toastStyle )
             };
             if (data.status === true){
                 console.log('Login successful')
-                localStorage.setItem('user', JSON.stringify(data.user));
+                localStorage.setItem('user', JSON.stringify(data.user.username));
                 navigate('/')
             }
         }

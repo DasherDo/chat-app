@@ -1,6 +1,5 @@
 import React, { useState , useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Window from '../components/Text/Window';
 import axios from 'axios';
 import { contactRoute } from '../utils/apiRoutes';
 import Contacts from '../components/Contacts/Contacts';
@@ -9,6 +8,7 @@ function Chat() {
 
 	const [contacts, setContacts] = useState();
     const [user, setUser] = useState();
+	const [selected, setSelected] = useState();
 
     const navigate = useNavigate();
 
@@ -31,15 +31,19 @@ function Chat() {
 		}
 	}, [user])
 
+	const handleSelectedChange = (selected) => {
+		setSelected(selected)
+	}
+
     const logout = () => {
       localStorage.removeItem('user');
     };
 
     return (
-      <div>
+      <div className='contact-container'>
         <Link to='/login' onClick={() => logout()}>Logout</Link>
-			<Contacts />
-    		<Window />
+			<Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
+			
       </div>
     )
 }

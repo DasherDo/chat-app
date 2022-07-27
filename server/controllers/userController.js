@@ -40,8 +40,8 @@ module.exports.login = async (req, res, next) => {
     const passwordCheck = await bcrypt.compare(password, user.password);
     if (!passwordCheck) {
         return res.json({msg: 'Incorrect username or password', status : false})
-    }
-    delete user.password
+    };
+    user.password = undefined;
     console.log('Login successful')
     return res.json({msg: 'Login successful', status : true, user})
 }

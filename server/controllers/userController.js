@@ -15,7 +15,7 @@ module.exports.user_list = (req, res) => {
     catch (err) {
         next(err)
     }
-    }
+};
 
 module.exports.register = async (req, res, next) => {
     const { username, password } = req.body;
@@ -44,4 +44,4 @@ module.exports.login = async (req, res, next) => {
     user.password = undefined;
     console.log('Login successful')
     return res.json({msg: 'Login successful', status : true, user})
-}
+};

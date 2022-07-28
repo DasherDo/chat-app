@@ -8,7 +8,7 @@ export default function Contacts({contacts, user, changeSelected}) {
 
 	const handleContactClick = (contact) => {
 		setCurrentView(contact._id)
-		changeSelected(contact.username)
+		changeSelected(contact)
 	}
 
 	return (

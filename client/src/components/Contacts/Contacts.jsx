@@ -2,12 +2,11 @@ import React , { useState } from 'react';
 
 export default function Contacts({contacts, user, changeSelected}) {
 
-	const [username, setUsername] = useState();
-
 	const [currentView, setCurrentView] = useState()
 
 	const handleContactClick = (contact) => {
 		setCurrentView(contact._id)
+		console.log(contact)
 		changeSelected(contact)
 	}
 

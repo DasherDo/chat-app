@@ -13,13 +13,12 @@ function Chat() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if(!localStorage.getItem('user')) {
+    	if(!localStorage.getItem('user')) {
         navigate('/login');
-      }
-      else {
-        setUser(localStorage.getItem('user')
-        )
-      }
+		}
+		else {
+			setUser(JSON.parse(localStorage.getItem('user')));
+		}
     }, [navigate]);
 
     useEffect(() => {
@@ -40,14 +39,12 @@ function Chat() {
     };
 
     const sendMessage = async () => {
-		console.log(selected)
-		console.log(user)
 		const { data } = await axios.post(createMessageRoute, {
-			subject: "Test",
-			body: "Test Body",
-			recipient: selected._id,
-			sender: user._id
+			body: "Hello",
+			sender: user._id,
+			recipient: selected._id
 		})
+		console.log(data.msg)
     }
 
     return (
@@ -55,7 +52,6 @@ function Chat() {
             <Link to='/login' onClick={() => logout()}>Logout</Link>
             <Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
             <button onClick={() => sendMessage()}>Send Message</button>
-            {selected}
         </div>
     )
 }

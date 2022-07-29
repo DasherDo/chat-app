@@ -7,3 +7,55 @@
 .active {
 	background-color: blue	;
 }
+
+.container {
+	display: grid;
+	margin: 100px;
+	height: 600px;
+	grid-template-columns:20% 80%;
+	grid-template-rows: auto min-content;
+	border: 1px solid black;
+}
+
+.contacts {
+	grid-column-start: 1;
+	grid-row-start: 0;
+	grid-row-end: span 2;
+}
+
+.display {
+	border: 1px solid black;
+	grid-column: 2 3;
+}
+
+.message-input {
+	border: 1px solid black;
+	height: 30px;
+	display: flex;
+	padding-right: 5px;
+}
+
+.message-form {
+	width: 95%;
+	margin-left: 5px;
+	border-radius: 25px;
+	border: 0px;
+	background-color: aqua;
+	padding-left: 30px;
+	padding-right: 40px;
+	font-size: 1rem;
+}
+
+.send-message {
+	height: 26px;
+	margin-top: 2px;
+	position: absolute;
+	right: 104px;
+	border: 0px solid;
+	border-radius: 25px;
+}
+
+.send-message > svg {
+	font-size: 1.5rem;
+
+}

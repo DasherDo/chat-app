@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { contactRoute, createMessageRoute } from '../utils/apiRoutes';
 import Contacts from '../components/Contacts/Contacts';
+import MessageInput from '../components/Messages/MessageInput';
+import MessageDisplay from '../components/Messages/MessageDisplay';
 
 function Chat() {
 
@@ -38,22 +40,31 @@ function Chat() {
       localStorage.removeItem('user');
     };
 
-    const sendMessage = async () => {
-		const { data } = await axios.post(createMessageRoute, {
-			body: "Hello",
-			sender: user._id,
-			recipient: selected._id
-		})
-		console.log(data.msg)
+    const handleMessageSend = async (message) => {
+		console.log(message, user._id, selected._id)
+		try{
+			const { data } = await axios.post(createMessageRoute, {
+				body: message,
+				sender: user._id,
+				recipient: selected._id
+			})
+			console.log(data.status)
+		}catch(err){
+			console.log(err)
+		}
     }
 
     return (
-        <div className='contact-container'>
-            <Link to='/login' onClick={() => logout()}>Logout</Link>
-            <Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
-            <button onClick={() => sendMessage()}>Send Message</button>
-        </div>
-    )
+		<>
+			<Link to='/login' onClick={() => logout}>Logout</Link>
+			<div className='container'>
+				<Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
+				<MessageDisplay />
+				<MessageInput user={user} selected={selected} sendMessage={handleMessageSend}/>
+			</div>
+		</>
+	)
+       
 }
 
 export default Chat

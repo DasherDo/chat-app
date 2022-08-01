@@ -5,7 +5,6 @@ const cors = require('cors')
 const app = express();
 const userRoutes = require('./routes/userRoutes');
 const messageRoutes = require('./routes/messageRoutes');
-const { application } = require('express');
 require('dotenv').config();
 
 const MONGO_URL = process.env.MONGO_URL

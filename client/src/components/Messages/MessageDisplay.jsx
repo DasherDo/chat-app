@@ -1,9 +1,12 @@
 import React from 'react';
 
-function MessageDisplay() {
+function MessageDisplay({messages, selected}) {
+
+
+
 	return (
 		<div className='display'>
-			MessageDisplay
+			Hi
 		</div>
 	)
 }

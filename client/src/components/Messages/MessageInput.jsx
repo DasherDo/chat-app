@@ -5,9 +5,14 @@ function MessageInput({sendMessage}) {
 
 	const [message, setMessage] = useState();
 
+	const handleFormSubmit = (e) => {
+		e.preventDefault();
+		sendMessage(message)
+	}
+
 	return (
 		<div>
-			<form onSubmit={() => sendMessage(message)} className='message-input'>
+			<form onSubmit={(e) => handleFormSubmit(e)} className='message-input'>
 				<input type="text" className='message-form' onChange={(e) => setMessage(e.target.value)}/>
 				<button type="submit" className='send-message'><BiSend /></button>
 			</form>

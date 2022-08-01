@@ -1,5 +1,5 @@
 import React, { useState , useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { contactRoute, createMessageRoute, getMessageRoute } from '../utils/apiRoutes';
 import Contacts from '../components/Contacts/Contacts';
@@ -11,15 +11,19 @@ function Chat() {
     const [contacts, setContacts] = useState();
     const [user, setUser] = useState();
     const [selected, setSelected] = useState();
+	const [messages, setMessages] = useState()
 
     const navigate = useNavigate();
 
     useEffect(() => {
+		console.log(JSON.parse(localStorage.getItem('user')))
     	if(!localStorage.getItem('user')) {
         navigate('/login');
 		}
 		else {
-			setUser(JSON.parse(localStorage.getItem('user')));
+			const userInfo = JSON.parse(localStorage.getItem('user'));
+			console.log(userInfo)
+			setUser(userInfo);
 		}
     }, [navigate]);
 
@@ -42,16 +46,16 @@ function Chat() {
     };
 
     const handleMessageSend = async (message) => {
-		console.log(message, user._id, selected._id)
+
 		try{
 			const { data } = await axios.post(createMessageRoute, {
 				body: message,
 				sender: user._id,
 				recipient: selected._id
 			})
-			console.log(data.status)
-		}catch(err){
-			console.log(err)
+			console.log(data.msg)
+		}catch(ex){
+			console.log(ex)
 		}
     }
 
@@ -59,14 +63,20 @@ function Chat() {
 		const { data } = await axios.post(getMessageRoute, {
 			recipient: user._id
 		})
+		let selectedMessages = data.filter((item, index) => {
+			return item.sender === selected._id
+		})
+		setMessages(selectedMessages)
+		console.log(selectedMessages)
 	}
 
     return (
 		<>
 			<button onClick={logout}>Logout</button>
+			<h3>{user && user.username}</h3>
 			<div className='container'>
 				<Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
-				<MessageDisplay />
+				<MessageDisplay messages={messages} />
 				<MessageInput user={user} selected={selected} sendMessage={handleMessageSend}/>
 				<button onClick={getMessage} />
 			</div>

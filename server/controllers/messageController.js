@@ -2,9 +2,8 @@ const Message = require('../models/message');
 
 module.exports.create_message = async (req, res, next) => {
     try {
-
 		const { body, sender, recipient } = req.body;
-		const { data } = await Message.create({
+		const data  = await Message.create({
 			body : body,
 			sender : sender,
 			recipient : recipient
@@ -23,13 +22,13 @@ module.exports.create_message = async (req, res, next) => {
 module.exports.get_message = (req, res, next) => {
 	try {
 		const { sender, recipient } = req.body;
-		console.log(recipient);
 		const messages = Message.find({
 			recipient: recipient
-		}).exec((err, results) => {
-			console.log(results)
+		}).select(
+			['body','sender']
+		).exec((err, results) => {
+			return res.json(results)
 		})
-		return res.json({status: true})
 	}catch (err) {
 		next(err)
 	}

@@ -40,7 +40,6 @@ function Login() {
             };
             if (data.status === true){
                 console.log('Login successful')
-				console.log(JSON.stringify(data.user))
                 localStorage.setItem('user', JSON.stringify(data.user));
                 navigate('/')
             }

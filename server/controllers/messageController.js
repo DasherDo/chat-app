@@ -19,3 +19,18 @@ module.exports.create_message = async (req, res, next) => {
 		next(err);
 	};
 }
+
+module.exports.get_message = (req, res, next) => {
+	try {
+		const { sender, recipient } = req.body;
+		console.log(recipient);
+		const messages = Message.find({
+			recipient: recipient
+		}).exec((err, results) => {
+			console.log(results)
+		})
+		return res.json({status: true})
+	}catch (err) {
+		next(err)
+	}
+}

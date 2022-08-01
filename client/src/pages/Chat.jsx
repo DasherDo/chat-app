@@ -1,7 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { contactRoute, createMessageRoute } from '../utils/apiRoutes';
+import { contactRoute, createMessageRoute, getMessageRoute } from '../utils/apiRoutes';
 import Contacts from '../components/Contacts/Contacts';
 import MessageInput from '../components/Messages/MessageInput';
 import MessageDisplay from '../components/Messages/MessageDisplay';
@@ -38,6 +38,7 @@ function Chat() {
 
     const logout = () => {
       localStorage.removeItem('user');
+	  navigate('/login')
     };
 
     const handleMessageSend = async (message) => {
@@ -54,13 +55,20 @@ function Chat() {
 		}
     }
 
+	const getMessage = async () => {
+		const { data } = await axios.post(getMessageRoute, {
+			recipient: user._id
+		})
+	}
+
     return (
 		<>
-			<Link to='/login' onClick={() => logout}>Logout</Link>
+			<button onClick={logout}>Logout</button>
 			<div className='container'>
 				<Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
 				<MessageDisplay />
 				<MessageInput user={user} selected={selected} sendMessage={handleMessageSend}/>
+				<button onClick={getMessage} />
 			</div>
 		</>
 	)

@@ -73,12 +73,10 @@ function Chat() {
     return (
 		<>
 			<button onClick={logout}>Logout</button>
-			<h3>{user && user.username}</h3>
 			<div className='container'>
 				<Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
 				<MessageDisplay messages={messages} />
 				<MessageInput user={user} selected={selected} sendMessage={handleMessageSend}/>
-				<button onClick={getMessage} />
 			</div>
 		</>
 	)

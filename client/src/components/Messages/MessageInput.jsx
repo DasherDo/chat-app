@@ -8,12 +8,13 @@ function MessageInput({sendMessage}) {
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
 		sendMessage(message)
+		setMessage('')
 	}
 
 	return (
 		<div>
 			<form onSubmit={(e) => handleFormSubmit(e)} className='message-input'>
-				<input type="text" className='message-form' onChange={(e) => setMessage(e.target.value)}/>
+				<input type="text" className='message-form' value={message} onChange={(e) => setMessage(e.target.value)}/>
 				<button type="submit" className='send-message'><BiSend /></button>
 			</form>
 		</div>

@@ -23,13 +23,13 @@ module.exports.get_message = (req, res, next) => {
 	try {
 		const { sender, recipient } = req.body;
 		const messages = Message.find({
-			recipient: recipient
+			recipient: {$in: [sender, recipient]}
 		}).select(
-			['body','sender']
+			['body','sender','recipient']
 		).exec((err, results) => {
 			return res.json(results)
 		})
 	}catch (err) {
 		next(err)
 	}
-}
+};

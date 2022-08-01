@@ -36,8 +36,17 @@ function Chat() {
       }
     }, [user])
 
-    const handleSelectedChange = (selected) => {
-      setSelected(selected)
+    const handleSelectedChange = async (selected) => {
+		setSelected(selected)
+		const { data } = await axios.post(getMessageRoute, {
+			recipient: user._id,
+			sender: selected._id
+			})
+		let selectedMessages = data.filter((item, index) => {
+			return (item.sender === selected._id && item.recipient === user._id) || (item.recipient === selected._id && item.sender === user._id)
+		})
+		console.log(selectedMessages)
+		setMessages(selectedMessages)
     };
 
     const logout = () => {
@@ -59,16 +68,16 @@ function Chat() {
 		}
     }
 
-	const getMessage = async () => {
-		const { data } = await axios.post(getMessageRoute, {
-			recipient: user._id
-		})
-		let selectedMessages = data.filter((item, index) => {
-			return item.sender === selected._id
-		})
-		setMessages(selectedMessages)
-		console.log(selectedMessages)
-	}
+	// const getMessage = async () => {
+	// 	const { data } = await axios.post(getMessageRoute, {
+	// 		recipient: user._id
+	// 	})
+	// 	let selectedMessages = data.filter((item, index) => {
+	// 		return item.sender === selected._id
+	// 	})
+	// 	setMessages(selectedMessages)
+	// 	console.log(selectedMessages)
+	// }
 
     return (
 		<>

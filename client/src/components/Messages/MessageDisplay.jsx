@@ -6,7 +6,7 @@ function MessageDisplay({messages, selected}) {
 
 	return (
 		<div className='display'>
-			Hi
+			{messages && messages.map((item) => (<div>{item.body}</div>))}
 		</div>
 	)
 }

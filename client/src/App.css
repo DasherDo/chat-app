@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600;700;900&display=swap');
 
 * {
-	font-family: 'Open Sans', sans-serif;
+	font-family:'Source Sans Pro', sans-serif;
 	font-size: 1rem;
 	--color-main: #def2f1;
 	--color-primary: #2b7a78;
@@ -20,6 +21,8 @@ body {
 	grid-template-columns:10% 90%;
 	grid-template-rows: auto 34px;
 	border: 1px solid black;
+	border-radius: 25px;
+	border-bottom-right-radius: 10px;
 }
 
 
@@ -33,6 +36,12 @@ body {
 	height: 600px;
 	overflow: auto;
 	border-right: 1px solid black;
+	border-top-left-radius: 25px;
+	border-bottom-left-radius: 25px;
+}
+
+.contacts::-webkit-scrollbar {
+	display: none;
 }
 
 .contact {
@@ -54,6 +63,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--color-chat-display);
+	border-top-right-radius: 25px;
 }
 
 .message-input {
@@ -62,6 +72,7 @@ body {
 	display: flex;
 	padding-right: 5px;
 	background-color: var(--color-primary);
+	border-bottom-right-radius: 10px;
 }
 
 .message-form {
@@ -101,7 +112,7 @@ body {
 	background-color: var(--color-primary-active);
 	border: 1px solid var(--color-primary);
 	border-radius: 10px;
-	font-weight: 400;
+	font-weight: 300;
 }
 
 .from {
@@ -110,4 +121,22 @@ body {
 
 .to {
 	align-self: flex-end;
+}
+
+.header {
+	display: flex;
+	justify-content: center;
+}
+
+h1 {
+	position: absolute;
+	left: 100px;
+	top: 30px;
+	font-weight: 900;
+	font-size: x-large;
+}
+
+.logout {
+	position: absolute;
+	left: 0px;
 }

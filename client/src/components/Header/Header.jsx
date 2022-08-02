@@ -3,10 +3,10 @@ import React from 'react'
 function Header({user, logout}) {
   return (
 	<div className='header'>
-		<button onClick={logout}>Logout</button>
-		<h3>
+		<button onClick={logout} className='logout'>Logout</button>
+		<h1>
 			Hello, {user && user.username}!
-		</h3>
+		</h1>
 	</div>
   )
 }

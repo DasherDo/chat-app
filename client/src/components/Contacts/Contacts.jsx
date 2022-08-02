@@ -13,11 +13,16 @@ export default function Contacts({contacts, user, changeSelected}) {
 	return (
 	<div className='contacts'>
 		{user && contacts && (contacts.map((contact, id) => {
-			return (
-			<div className={currentView === contact._id ? 'contact active' : 'contact'} key={id} onClick={() => handleContactClick(contact)}>
-				{contact.username}
-			</div>
-			)
+			if (user._id === contact._id) {
+				return <></>
+			}
+			else{
+				return (
+				<div className={currentView === contact._id ? 'contact active' : 'contact'} key={id} onClick={() => handleContactClick(contact)}>
+					{contact.username}
+				</div>
+				)
+			}
 		}))}
 	</div>
 	)

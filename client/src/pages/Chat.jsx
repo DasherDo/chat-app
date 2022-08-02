@@ -5,6 +5,7 @@ import { contactRoute, createMessageRoute, getMessageRoute } from '../utils/apiR
 import Contacts from '../components/Contacts/Contacts';
 import MessageInput from '../components/Messages/MessageInput';
 import MessageDisplay from '../components/Messages/MessageDisplay';
+import Header from '../components/Header/Header';
 
 function Chat() {
 
@@ -45,7 +46,6 @@ function Chat() {
 		let selectedMessages = data.filter((item, index) => {
 			return (item.sender === selected._id && item.recipient === user._id) || (item.recipient === selected._id && item.sender === user._id)
 		})
-		console.log(selectedMessages)
 		setMessages(selectedMessages)
     };
 
@@ -81,10 +81,10 @@ function Chat() {
 
     return (
 		<>
-			<button onClick={logout}>Logout</button>
+			<Header user={user} logout={logout}/>
 			<div className='container'>
 				<Contacts contacts={contacts} user={user} changeSelected={handleSelectedChange}/>
-				<MessageDisplay messages={messages} />
+				<MessageDisplay messages={messages} selected={selected}/>
 				<MessageInput user={user} selected={selected} sendMessage={handleMessageSend}/>
 			</div>
 		</>

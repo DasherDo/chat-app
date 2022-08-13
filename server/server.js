@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors')
-const socket = require('socket.io');
+const cors = require('cors');
+const { Server } = require('socket.io')
 
 const app = express();
 const userRoutes = require('./routes/userRoutes');
@@ -29,25 +29,15 @@ mongoose.connect(MONGO_URL, {
     console.log(`Database Connection Error: ${err.nessage}`)
 })
 
-const io = socket(server, {
+const io = new Server(server, {
 	cors: {
 		origin: 'http://localhost:3000',
-		credentials: true
+		methods: ["GET", "POST"],
 	}
 })
 
-global.online = new Map();
-
 io.on("connection", (socket) => {
-	global.chatSocket = socket;
-	socket.on('add-user', (user_id) => {
-		online.set(user_id, socket.id);
-	})
-
-	socket.on('send-message', (data) => {
-		const sendUserSocket = online.get(data.to);
-		if (sendUserSocket) {
-			socket.to(sendUserSocket).emit('msg-received', data.msg);
-		}
+	socket.on("send-msg", (data) => {
+		socket.broadcast.emit("receive-msg", data)
 	})
 })

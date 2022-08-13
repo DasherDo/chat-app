@@ -1,5 +1,6 @@
 import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import io from "socket.io-client";
 import axios from 'axios';
 import { contactRoute, createMessageRoute, getMessageRoute } from '../utils/apiRoutes';
 import Contacts from '../components/Contacts/Contacts';
@@ -12,22 +13,34 @@ function Chat() {
     const [contacts, setContacts] = useState();
     const [user, setUser] = useState();
     const [selected, setSelected] = useState();
-	const [messages, setMessages] = useState()
+	const [messages, setMessages] = useState();
+	const socket = io.connect("http://localhost:5000");
 
     const navigate = useNavigate();
 
+	useEffect(() => {
+		socket.on("receive-msg", (data) => {
+			const msg = [...messages]
+			const selectedMessages = data.filter((item) => {
+				return (item.sender === selected._id && item.recipient === user._id) || (item.recipient === selected._id && item.sender === user._id)
+			})
+			msg.push(selectedMessages)
+			console.log(msg)
+			setMessages(msg)
+		})}, [socket]);
+
+	//Checks to see if user is logged in, redirects to login page if not
     useEffect(() => {
-		console.log(JSON.parse(localStorage.getItem('user')))
     	if(!localStorage.getItem('user')) {
         navigate('/login');
 		}
 		else {
 			const userInfo = JSON.parse(localStorage.getItem('user'));
-			console.log(userInfo)
 			setUser(userInfo);
 		}
     }, [navigate]);
 
+	// Gets contact list for logged in user
     useEffect(() => {
       if(user) {
         axios.get(`${contactRoute}/${user._id}`)
@@ -37,6 +50,8 @@ function Chat() {
       }
     }, [user])
 
+
+	//Shows different chats depending on selected contact
     const handleSelectedChange = async (selected) => {
 		setSelected(selected)
 		const { data } = await axios.post(getMessageRoute, {
@@ -62,22 +77,16 @@ function Chat() {
 				sender: user._id,
 				recipient: selected._id
 			})
+			socket.emit("send-msg", {
+				body: message,
+				sender: user._id,
+				recipient: selected._id
+			})
 			console.log(data.msg)
 		}catch(ex){
 			console.log(ex)
 		}
     }
-
-	// const getMessage = async () => {
-	// 	const { data } = await axios.post(getMessageRoute, {
-	// 		recipient: user._id
-	// 	})
-	// 	let selectedMessages = data.filter((item, index) => {
-	// 		return item.sender === selected._id
-	// 	})
-	// 	setMessages(selectedMessages)
-	// 	console.log(selectedMessages)
-	// }
 
     return (
 		<>

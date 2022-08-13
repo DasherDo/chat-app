@@ -2,10 +2,7 @@ import React from 'react';
 import "./message.css";
 
 function MessageDisplay({messages, selected}) {
-
-	console.log(messages)
-	console.log(selected)
-
+	
 	return (
 		<div className='display'>
 			{messages && messages.map((item, id) => {

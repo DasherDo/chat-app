@@ -13,7 +13,7 @@ function Chat() {
     const [contacts, setContacts] = useState();
     const [user, setUser] = useState();
     const [selected, setSelected] = useState();
-	const [messages, setMessages] = useState();
+	const [messages, setMessages] = useState([]);
 	const socket = io.connect("http://localhost:5000");
 
     const navigate = useNavigate();
@@ -21,13 +21,9 @@ function Chat() {
 	useEffect(() => {
 		socket.on("receive-msg", (data) => {
 			const msg = [...messages]
-			const selectedMessages = data.filter((item) => {
-				return (item.sender === selected._id && item.recipient === user._id) || (item.recipient === selected._id && item.sender === user._id)
-			})
-			msg.push(selectedMessages)
-			console.log(msg)
-			setMessages(msg)
-		})}, [socket]);
+			msg.push(data)
+			setMessages((prev) => [...prev, msg])
+		})}, [messages, socket]);
 
 	//Checks to see if user is logged in, redirects to login page if not
     useEffect(() => {

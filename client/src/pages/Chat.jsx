@@ -20,9 +20,8 @@ function Chat() {
 
 	useEffect(() => {
 		socket.on("receive-msg", (data) => {
-			console.log(data)
 			setMessages((prev) => [...prev, data])
-		})}, [messages, socket]);
+		})}, [socket]);
 
 	//Checks to see if user is logged in, redirects to login page if not
     useEffect(() => {

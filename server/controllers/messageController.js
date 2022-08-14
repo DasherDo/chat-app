@@ -9,7 +9,7 @@ module.exports.create_message = async (req, res, next) => {
 			recipient : recipient
 		});
 		if (data) {
-			return res.json({msg: "Message Sent", data});
+			return res.json({msg: "Message Sent", data, status: true});
 		}
 		else {
 			return res.json({msg: "Failed to send"});

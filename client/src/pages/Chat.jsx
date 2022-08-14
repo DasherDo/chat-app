@@ -20,9 +20,8 @@ function Chat() {
 
 	useEffect(() => {
 		socket.on("receive-msg", (data) => {
-			const msg = [...messages]
-			msg.push(data)
-			setMessages((prev) => [...prev, msg])
+			console.log(data)
+			setMessages((prev) => [...prev, data])
 		})}, [messages, socket]);
 
 	//Checks to see if user is logged in, redirects to login page if not
@@ -33,8 +32,10 @@ function Chat() {
 		else {
 			const userInfo = JSON.parse(localStorage.getItem('user'));
 			setUser(userInfo);
+			//Joins socket room with user id
+			//socket.emit('join', {id: (user ? user._id : null)});
 		}
-    }, [navigate]);
+    },[navigate]);
 
 	// Gets contact list for logged in user
     useEffect(() => {
@@ -78,7 +79,9 @@ function Chat() {
 				sender: user._id,
 				recipient: selected._id
 			})
-			console.log(data.msg)
+			if (data.status) {
+				setMessages((prev) => [...prev, data.data])
+			}
 		}catch(ex){
 			console.log(ex)
 		}
@@ -92,6 +95,7 @@ function Chat() {
 				<MessageDisplay messages={messages} selected={selected}/>
 				<MessageInput user={user} selected={selected} sendMessage={handleMessageSend}/>
 			</div>
+			<button onClick={() => console.log(messages)}>Test</button>
 		</>
 	)
        

@@ -38,6 +38,7 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
 	socket.on("send-msg", (data) => {
-		socket.broadcast.emit("receive-msg", data)
+		const to = data.recipient
+		socket.to(to).emit("receive-msg", data)
 	})
 })

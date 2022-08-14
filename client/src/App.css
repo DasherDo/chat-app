@@ -10,6 +10,10 @@
 	--color-chat-display: #feffff;
 }
 
+button, form {
+	cursor: pointer;
+}
+
 body {
 	background-color: var(--color-main);
 }
@@ -64,6 +68,11 @@ body {
 	flex-direction: column;
 	background-color: var(--color-chat-display);
 	border-top-right-radius: 25px;
+	overflow: auto;
+}
+
+.display::-webkit-scrollbar {
+	display: none;
 }
 
 .message-input {

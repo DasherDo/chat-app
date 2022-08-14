@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useRef , useEffect } from 'react';
 import "./message.css";
 
 function MessageDisplay({messages, selected}) {
-	
+
+	const messagesEndRef = useRef(null)
+
+	const scrollToBottom = () => {
+		messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+	}
+
+	useEffect(() => {
+		scrollToBottom()
+	  }, [messages]);
+
 	return (
 		<div className='display'>
 			{messages && messages.map((item, id) => {
@@ -17,6 +27,7 @@ function MessageDisplay({messages, selected}) {
 					)
 				}
 			})}
+			<div ref={messagesEndRef} />
 		</div>
 	)
 }

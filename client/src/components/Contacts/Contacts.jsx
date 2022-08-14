@@ -13,7 +13,7 @@ export default function Contacts({contacts, user, changeSelected}) {
 	<div className='contacts'>
 		{user && contacts && (contacts.map((contact, id) => {
 			if (user._id === contact._id) {
-				return <></>
+				return <div key={id}></div>
 			}
 			else{
 				return (

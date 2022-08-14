@@ -3,7 +3,7 @@ import {BiSend} from 'react-icons/bi';
 
 function MessageInput({sendMessage}) {
 
-	const [message, setMessage] = useState();
+	const [message, setMessage] = useState([]);
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();

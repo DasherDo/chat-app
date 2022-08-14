@@ -64,6 +64,12 @@ body {
 	flex-direction: column;
 	background-color: var(--color-chat-display);
 	border-top-right-radius: 25px;
+	max-height: fit-content;
+	overflow: auto;
+}
+
+.display::-webkit-scrollbar {
+	display: none;
 }
 
 .message-input {

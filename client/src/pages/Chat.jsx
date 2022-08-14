@@ -14,8 +14,7 @@ function Chat() {
     const [user, setUser] = useState();
     const [selected, setSelected] = useState();
 	const [messages, setMessages] = useState([]);
-	const socket = io.connect("http://localhost:5000");
-
+	const socket = io.connect('http://localhost:5000');
     const navigate = useNavigate();
 
 	useEffect(() => {

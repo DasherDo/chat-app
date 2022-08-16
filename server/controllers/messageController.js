@@ -1,35 +1,34 @@
 const Message = require('../models/message');
 
 module.exports.create_message = async (req, res, next) => {
-    try {
+	try {
 		const { body, sender, recipient } = req.body;
-		const data  = await Message.create({
-			body : body,
-			sender : sender,
-			recipient : recipient
+		const data = await Message.create({
+			body: body,
+			sender: sender,
+			recipient: recipient,
 		});
 		if (data) {
-			return res.json({msg: "Message Sent", data, status: true});
+			return res.json({ msg: 'Message Sent', data, status: true });
+		} else {
+			return res.json({ msg: 'Failed to send' });
 		}
-		else {
-			return res.json({msg: "Failed to send"});
-		}	
 	} catch (err) {
 		next(err);
-	};
-}
+	}
+};
 
 module.exports.get_message = (req, res, next) => {
 	try {
 		const { sender, recipient } = req.body;
 		const messages = Message.find({
-			recipient: {$in: [sender, recipient]}
-		}).select(
-			['body','sender','recipient']
-		).exec((err, results) => {
-			return res.json(results)
+			recipient: { $in: [sender, recipient] },
 		})
-	}catch (err) {
-		next(err)
+			.select(['body', 'sender', 'recipient'])
+			.exec((err, results) => {
+				return res.json(results);
+			});
+	} catch (err) {
+		next(err);
 	}
 };

@@ -2,9 +2,9 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const async = require('async');
 
-module.exports.user_list = (req, res) => {
+module.exports.user_list = async (req, res) => {
 	try {
-		User.find({ id: { $ne: req.params.id } })
+		await User.find({ id: { $ne: req.params.id } })
 			.select(['username', 'id'])
 			.exec((err, results) => {
 				return res.json(results);

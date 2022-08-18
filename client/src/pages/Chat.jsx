@@ -115,7 +115,6 @@ function Chat() {
 					sendMessage={handleMessageSend}
 				/>
 			</div>
-			<button onClick={() => console.log(messages)}>Test</button>
 		</>
 	);
 }

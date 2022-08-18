@@ -39,9 +39,41 @@ const io = new Server(server, {
 	},
 });
 
+let online = [];
+
+const addOnline = (userId, socketId) => {
+	!online.some((user) => user.userId === userId) &&
+		online.push({ userId, socketId });
+};
+
+const getRecipient = (recipientId) => {
+	return online.find((user) => {
+		user.userId === recipientId;
+	});
+};
+
+const moveOffline = (socketId) => {
+	online = online.filter((user) => user.socketId !== socketId);
+};
+
+io.on('connect_error', (err) => {
+	console.log(`Connect error due to ${err.message}`);
+});
+
 io.on('connection', (socket) => {
+	socket.on('addUser', (userId) => {
+		addOnline(userId, socket.id);
+		io.emit('getUsers', online);
+	});
+
 	socket.on('send-msg', (data) => {
-		const to = data.recipient;
-		socket.to(to).emit('receive-msg', data);
+		const recipient = getRecipient(data.recipient);
+		console.log(recipient);
+		socket.to(recipient.socketId).emit('receive-msg', data);
+	});
+
+	socket.on('disconnect', () => {
+		moveOffline(socket.id);
+		io.emit('getUsers', online);
 	});
 });

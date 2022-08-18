@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import io from 'socket.io-client';
+import { io } from 'socket.io-client';
 import axios from 'axios';
 import {
 	contactRoute,
@@ -17,14 +17,24 @@ function Chat() {
 	const [user, setUser] = useState();
 	const [selected, setSelected] = useState();
 	const [messages, setMessages] = useState([]);
-	const socket = io.connect('http://localhost:5000');
+	const [newMessage, setNewMessage] = useState();
+	const socket = useRef();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		socket.on('receive-msg', (data) => {
-			setMessages((prev) => [...prev, data]);
+		socket.current = io('ws://localhost:5000');
+		socket.current.on('receive-msg', (data) => {
+			setNewMessage({
+				sender: data.sender,
+				recipient: data.recipient,
+				body: data.body,
+			});
 		});
-	}, [socket]);
+	}, []);
+
+	useEffect(() => {
+		newMessage && setMessages((prev) => [...prev, newMessage]);
+	}, [newMessage, selected]);
 
 	//Checks to see if user is logged in, redirects to login page if not
 	useEffect(() => {
@@ -75,10 +85,11 @@ function Chat() {
 				sender: user._id,
 				recipient: selected._id,
 			});
-			socket.emit('send-msg', {
+			socket.current.emit('send-msg', {
 				body: message,
 				sender: user._id,
 				recipient: selected._id,
+				status: true,
 			});
 			if (data.status) {
 				setMessages((prev) => [...prev, data.data]);

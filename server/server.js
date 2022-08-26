@@ -2,6 +2,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const { Server } = require('socket.io');
+const compression = require('compression');
+const helmet = require('helmet');
 
 const app = express();
 const userRoutes = require('./routes/userRoutes');
@@ -10,11 +12,8 @@ require('dotenv').config();
 
 const MONGO_URL = process.env.MONGO_URL;
 
-app.use(
-	cors({
-		origin: '*',
-	})
-);
+app.use(cors());
+app.use(helmet());
 app.use(express.json());
 app.use('/api/auth', userRoutes);
 app.use('/api/message', messageRoutes);

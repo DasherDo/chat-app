@@ -15,6 +15,7 @@ module.exports.user_list = async (req, res) => {
 };
 
 module.exports.register = async (req, res, next) => {
+	console.log('Register');
 	const { username, password } = req.body;
 	const usernameCheck = await User.findOne({ username });
 	if (usernameCheck) {

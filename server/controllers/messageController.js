@@ -8,6 +8,7 @@ module.exports.create_message = async (req, res, next) => {
 			sender: sender,
 			recipient: recipient,
 		});
+		// If successful sends message data back to React with true status
 		if (data) {
 			return res.json({ msg: 'Message Sent', data, status: true });
 		} else {

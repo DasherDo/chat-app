@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap');
 
 * {
 	font-family:'Source Sans Pro', sans-serif;
@@ -21,7 +21,7 @@ body {
 .container {
 	display: grid;
 	margin: 100px;
-	height: 600px;
+	height: 730px;
 	grid-template-columns:10% 90%;
 	grid-template-rows: auto 34px;
 	border: 1px solid black;
@@ -37,7 +37,7 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--color-primary);
-	height: 600px;
+	height: 730px;
 	overflow: auto;
 	border-right: 1px solid black;
 	border-top-left-radius: 25px;
@@ -54,7 +54,7 @@ body {
 	align-items: center;
 	min-height: 200px;
 	border-bottom: 1px solid black;
-	font-weight: 600;
+	font-weight: 900;
 }
 
 .active {
@@ -122,7 +122,8 @@ body {
 	background-color: var(--color-primary-active);
 	border: 1px solid var(--color-primary);
 	border-radius: 10px;
-	font-weight: 300;
+	font-weight: 500;
+	font-size: large;
 }
 
 .from {
@@ -136,6 +137,7 @@ body {
 .header {
 	display: flex;
 	justify-content: center;
+	flex-direction: row;
 }
 
 h1 {
@@ -148,6 +150,43 @@ h1 {
 
 .logout {
 	position: absolute;
-	left: 0px;
-	top: 10px;
+	right: 10px;
+	top: 5px;
+}
+
+.login, .register{
+	display: flex;
+	height: 730px;
+	align-items: center;
+	justify-content: center;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--color-primary);
+}
+
+.form > input::placeholder {
+	color: black;
+}
+
+.form > * {
+	margin: 20px;
+	height: 40px;
+	width: 400px;
+	padding: 5px;
+	border: 0px;
+}
+
+.form > a {
+	width: auto;
+	padding: 0px;
+	background-color: var(--color-primary);
+	color: white;
+}
+
+.form > button {
+	width: 410px;
 }

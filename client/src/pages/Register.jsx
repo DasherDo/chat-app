@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { registerRoute } from '../utils/apiRoutes';
 import axios from 'axios';
+import '../App.css';
 
 function Register() {
 	const navigate = useNavigate();
@@ -31,7 +32,6 @@ function Register() {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('Submit');
 		if (handleValidation()) {
 			const { username, password } = userInfo;
 			const { data } = await axios.post(registerRoute, {
@@ -69,8 +69,10 @@ function Register() {
 	};
 
 	return (
-		<div>
-			<form onSubmit={(e) => handleSubmit(e)}>
+		<div className='register'>
+			<form
+				onSubmit={(e) => handleSubmit(e)}
+				className='form'>
 				<input
 					type='text'
 					placeholder='Username'

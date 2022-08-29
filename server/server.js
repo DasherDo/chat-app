@@ -67,8 +67,9 @@ io.on('connection', (socket) => {
 
 	socket.on('send-msg', (data) => {
 		const recipient = getRecipient(data.recipient);
-		console.log(recipient);
-		socket.to(recipient.socketId).emit('receive-msg', data);
+		if (recipient) {
+			socket.to(recipient.socketId).emit('receive-msg', data);
+		}
 	});
 
 	socket.on('disconnect', () => {

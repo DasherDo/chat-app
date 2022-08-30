@@ -91,7 +91,7 @@ function Register() {
 					name='confirmedPassword'
 					onChange={(e) => handleChange(e)}
 				/>
-				<button>Submit</button>
+				<button className='submit'>Submit</button>
 				<Link to='/login'>Login</Link>
 			</form>
 			<ToastContainer />

@@ -66,7 +66,9 @@ function Login() {
 
 	return (
 		<div className='login'>
-			<form onSubmit={(e) => handleSubmit(e)} className='form'>
+			<form
+				onSubmit={(e) => handleSubmit(e)}
+				className='form'>
 				<input
 					type='text'
 					placeholder='Username'
@@ -79,7 +81,7 @@ function Login() {
 					name='password'
 					onChange={(e) => handleChange(e)}
 				/>
-				<button>Submit</button>
+				<button className='submit'>Submit</button>
 				<Link to='/register'>Register</Link>
 			</form>
 			<ToastContainer />
